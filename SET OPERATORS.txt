@@ -1,0 +1,40 @@
+SET OPERATORS
+-- Part 6: SET Operators
+-- Name: Wangechi Njoroge
+-- Date: 2026-04-19
+-- Databases: nairobi_academy + city_hospital
+-- =============================================
+
+-- Q1: UNION — unique cities from students 
+--     and patients, alphabetically
+SELECT city FROM nairobi_academy.students
+UNION
+SELECT city FROM city_hospital.patients
+ORDER BY city;
+
+-- Q2: UNION ALL — student first names and patient 
+--     full names with source label
+SELECT first_name AS name, 'Student' AS source
+FROM nairobi_academy.students
+UNION ALL
+SELECT full_name, 'Patient'
+FROM city_hospital.patients;
+
+-- Q3: INTERSECT — cities that appear in BOTH 
+--     students and patients tables
+SELECT city FROM nairobi_academy.students
+INTERSECT
+SELECT city FROM city_hospital.patients;
+
+-- Q4: UNION ALL — student names, patient names 
+--     and doctor names all in one result
+SELECT first_name || ' ' || last_name AS name, 
+       'Student' AS source
+FROM nairobi_academy.students
+UNION ALL
+SELECT full_name, 'Patient'
+FROM city_hospital.patients
+UNION ALL
+SELECT full_name, 'Doctor'
+FROM city_hospital.doctors
+ORDER BY source, name;
