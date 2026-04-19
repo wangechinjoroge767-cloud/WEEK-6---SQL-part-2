@@ -1,0 +1,30 @@
+NUMBER FUNCTION
+
+-- Part 2: Number Functions
+-- Name: Wangechi Njoroge
+-- Date: 2026-04-19
+-- Database: nairobi_academy
+-- =============================================
+
+SET search_path TO nairobi_academy;
+
+-- Q1: Marks rounded to 1dp, CEIL to nearest 10, FLOOR
+SELECT result_id, marks,
+       ROUND(marks::NUMERIC, 1) AS rounded_mark,
+       CEIL(marks / 10.0) * 10 AS ceil_mark,
+       FLOOR(marks) AS floor_mark
+FROM exam_results;
+
+-- Q2: Summary statistics in one query
+SELECT COUNT(*) AS total_results,
+       ROUND(AVG(marks), 2) AS avg_mark,
+       MAX(marks) AS highest_mark,
+       MIN(marks) AS lowest_mark,
+       SUM(marks) AS total_marks
+FROM exam_results;
+
+-- Q3: 10% bonus marks
+SELECT result_id,
+       marks AS original_marks,
+       ROUND(marks * 1.10) AS boosted_mark
+FROM exam_results;

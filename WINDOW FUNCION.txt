@@ -1,0 +1,35 @@
+WINDOW FUNCION
+-- Part 5: Window Functions
+-- Name: Wangechi Njoroge
+-- Date: 2026-04-19
+-- Database: nairobi_academy
+-- =============================================
+
+SET search_path TO nairobi_academy;
+
+-- Q1: ROW_NUMBER — unique rank highest to lowest marks
+SELECT result_id, student_id, marks,
+       ROW_NUMBER() OVER (ORDER BY marks DESC) AS row_num
+FROM exam_results;
+
+-- Q2: RANK and DENSE_RANK side by side
+SELECT result_id, marks,
+       RANK() OVER (ORDER BY marks DESC) AS rank,
+       DENSE_RANK() OVER (ORDER BY marks DESC) AS dense_rank
+FROM exam_results;
+
+-- Q3: NTILE(3) — 3 performance bands
+SELECT result_id, marks,
+       NTILE(3) OVER (ORDER BY marks DESC) AS band
+FROM exam_results;
+
+-- Q4: AVG mark per student using PARTITION BY
+SELECT student_id, marks,
+       ROUND(AVG(marks) OVER (PARTITION BY student_id), 2) AS student_avg
+FROM exam_results;
+
+-- Q5: LAG — previous result and improvement per student
+SELECT student_id, result_id, marks,
+       LAG(marks) OVER (PARTITION BY student_id ORDER BY result_id) AS prev_marks,
+       marks - LAG(marks) OVER (PARTITION BY student_id ORDER BY result_id) AS improvement
+FROM exam_results;

@@ -1,0 +1,27 @@
+DATE AND TIME FUNCTION
+
+-- Part 3: Date & Time Functions
+-- Name: Wangechi Njoroge
+-- Date: 2026-04-19
+-- Database: nairobi_academy
+-- =============================================
+
+SET search_path TO nairobi_academy;
+
+-- Q1: Birth year, month, day as separate columns
+SELECT first_name,
+       EXTRACT(YEAR FROM date_of_birth) AS birth_year,
+       EXTRACT(MONTH FROM date_of_birth) AS birth_month,
+       EXTRACT(DAY FROM date_of_birth) AS birth_day
+FROM students;
+
+-- Q2: Full name, date of birth, age — oldest to youngest
+SELECT first_name || ' ' || last_name AS full_name,
+       date_of_birth,
+       EXTRACT(YEAR FROM AGE(date_of_birth)) AS age
+FROM students
+ORDER BY date_of_birth ASC;
+
+-- Q3: Exam date formatted as 'Friday, 15th March 2024'
+SELECT TO_CHAR(exam_date, 'FMDay, DDth FMMonth YYYY') AS formatted_date
+FROM exam_results;

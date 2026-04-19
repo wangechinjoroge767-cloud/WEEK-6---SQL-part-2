@@ -1,0 +1,31 @@
+STRING  FUNCTION
+-- Part 1: String Functions
+-- Name: Wangechi Njoroge
+-- Date: 2026-04-19
+-- Database: nairobi_academy
+-- =============================================
+
+SET search_path TO nairobi_academy;
+
+-- Q1: Full name in UPPERCASE, city in lowercase
+SELECT UPPER(first_name || ' ' || last_name) AS upper_name,
+       LOWER(city) AS lower_city
+FROM students;
+
+-- Q2: First name and its length, longest to shortest
+SELECT first_name,
+       LENGTH(first_name) AS name_length
+FROM students
+ORDER BY name_length DESC;
+
+-- Q3: Subject name, short version (first 4 chars), full length
+SELECT subject_name,
+       LEFT(subject_name, 4) AS short_name,
+       LENGTH(subject_name) AS name_length
+FROM subjects;
+
+-- Q4: Student summary sentence using CONCAT
+SELECT CONCAT(first_name, ' ', last_name, 
+       ' is in ', class, 
+       ' and comes from ', city) AS student_summary
+FROM students;
